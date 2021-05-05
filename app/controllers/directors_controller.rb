@@ -17,12 +17,12 @@ class DirectorsController < ApplicationController
     render({ :template => "director_templates/youngest.html.erb" })
   end
 
-  def  director_details  
+  def director_details
+    the_id = params.fetch("an_id")
 
-    #Parameters: {"id"=>"1"}
-    the_id = params.fetch("id")
+    @the_director = Director.where({ :id => the_id }).at(0)
 
-    @the_director = Director.where({ :id => the_id })
+    @filmography = Movie.where({ :director_id => @the_director.id })
 
     render({ :template => "director_templates/anid.html.erb" })
   end
